@@ -24,7 +24,19 @@ if ($value1 != "" && $base_value1 != "" && $base_to_convert1 != "" ) {
 
 function convert_to_10 ($value,$base) {
 	$value = strtolower($value);
-	write_count($value,$base);
+	//write_count($value,$base);
+	do_count(value,$base);
+}
+
+function do_count($value,$base) {
+
+	$count_array = array('base' => $base, 'values' => array());
+	for ($i= 0; $i < strlen($value) ; $i++) { 
+		$real_value = convert_letter_to_number($value[$i]);
+		$pot = strlen($value) - 1 - $i;
+		$count_array['values'][] = array('value' => $real_value, 'pot' => $pot);
+	}
+	print_r($count_array);
 }
 
 function write_count($value,$base) {
