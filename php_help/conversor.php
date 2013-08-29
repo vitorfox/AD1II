@@ -1,6 +1,8 @@
 <?
 
-$value_no_ready = @$argv[1];
+include ("fraction.php");
+
+$value1 = @$argv[1];
 $base_value1 = @$argv[2];
 $base_to_convert1 = @$argv[3];
 
@@ -11,10 +13,6 @@ $table_value['c'] = 12;
 $table_value['d'] = 13;
 $table_value['e'] = 14;
 $table_value['f'] = 15;
-
-
-$value1 = reset((explode('.',$value_no_ready));
-$value_fraction = end((explode('.',$value_no_ready));
 
 
 if ($value1 != "" && $base_value1 != "" && $base_to_convert1 != "" ) {
@@ -57,13 +55,20 @@ function echobase($base) {
 	return '_'.$base;
 }
 
-function convert_to_10 ($value,$base) {
+function convert_to_10 ($value1,$base) {
 
 	eline("Convertendo para base 10");
 
+	$value = reset(explode('.',$value1));
+	$value_fraction = end(explode('.',$value1));	
+
 	$value = strtolower($value);
 	write_count($value,$base);
-	return do_count_pot($value,$base);
+	write_count_frac($value_fraction,$base);
+	//print_r(get_array_count_pot_frac($value_fraction,$base_value1));	
+	$total = do_count_pot($value,$base) + do_count_pot_frac($value_fraction,$base);
+	eline($total.echobase('10'));
+	return $total;
 }
 
 function do_count_pot($value,$base) {
@@ -89,7 +94,6 @@ function do_count_pot($value,$base) {
 		$tot_count += $part_count;
 	}
 	eline("$count_text");
-	eline("$tot_count".(echobase('10')));
 	return $tot_count;
 }
 
