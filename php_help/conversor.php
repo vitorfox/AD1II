@@ -31,7 +31,23 @@ if ($value1 != "" && $base_value1 != "" && $base_to_convert1 != "" ) {
 	}
 }
 
-function convert_to_any ($value_base_10, $base){
+function convert_to_any($value_base_10, $base) {
+
+	if (strpos($value_base_10, ".")){
+		$value = reset(explode('.',$value_base_10));
+		$value_fraction = end(explode('.',$value_base_10));	
+	}else{
+		$value = $value_base_10;
+		$value_fraction = 0;
+	}
+
+	$resint = convert_to_any_indeed($value, $base);
+	$resfrac = convert_to_any_frac($value_fraction / eleva (10,strlen($value_fraction)),$base);
+	eline($resint . "." .$resfrac.echobase($base));
+}
+
+
+function convert_to_any_indeed ($value_base_10, $base){
 
 	eline("Convertendo para base $base");
 	$result = -1;
@@ -48,7 +64,7 @@ function convert_to_any ($value_base_10, $base){
 	/*if ((int)$result_text)
 		eline((int)$result_text.echobase($base));
 	else*/
-		eline($result_text.echobase($base));
+	return $result_text;
 }
 
 function echobase($base) {
@@ -59,8 +75,13 @@ function convert_to_10 ($value1,$base) {
 
 	eline("Convertendo para base 10");
 
-	$value = reset(explode('.',$value1));
-	$value_fraction = end(explode('.',$value1));	
+	if (strpos($value1, ".")){
+		$value = reset(explode('.',$value1));
+		$value_fraction = end(explode('.',$value1));
+	}else{
+		$value = $value1;
+		$value_fraction = 0;
+	}	
 
 	$value = strtolower($value);
 	write_count($value,$base);

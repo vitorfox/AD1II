@@ -39,4 +39,26 @@ function do_count_pot_frac($value,$base) {
 	return $tot_count;
 }
 
+function convert_to_any_frac ($value_base_10, $base){
+
+	eline("Convertendo para base $base");
+	(string) $result_text = "";
+	$result = $value_base_10;
+	$mod = -1;
+	while($mod != 0) {
+		$result = $result - $div;
+		$rb = $result;
+		$result = $result * $base;	
+		$div = (int) $result / 1.0;
+		$mod = fmod($result,1.0);
+		$result_text = (string) $result_text . (string) convert_number_to_letter($div) ;
+		eline("$rb * $base = $result -> $div");
+	}
+
+	/*if ((int)$result_text)
+		eline((int)$result_text.echobase($base));
+	else*/
+	return $result_text;
+}
+
 ?>
